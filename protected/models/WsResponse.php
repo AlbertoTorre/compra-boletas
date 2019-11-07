@@ -1,28 +1,26 @@
 <?php
 
 /**
- * This is the model class for table "tbl_buy".
+ * This is the model class for table "tbl_ws_response".
  *
- * The followings are the available columns in table 'tbl_buy':
+ * The followings are the available columns in table 'tbl_ws_response':
  * @property integer $id
+ * @property integer $function_id
+ * @property integer $pelicula_id
  * @property integer $cinema_id
- * @property integer $room_id
- * @property string $title
- * @property string $movie_time
- * @property double $price
- *
- * The followings are the available model relations:
- * @property TblCinema $cinema
- * @property TblRoom $room
+ * @property string $fecha
+ * @property string $horario
+ * @property integer $numero_sala
+ * @property string $tipo_sala
  */
-class Buy extends CActiveRecord
+class WsResponse extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'tbl_buy';
+		return 'tbl_ws_response';
 	}
 
 	/**
@@ -33,13 +31,12 @@ class Buy extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('cinema_id, room_id, title, movie_time, price', 'required'),
-			array('cinema_id, room_id', 'numerical', 'integerOnly'=>true),
-			array('price', 'numerical'),
-			array('title', 'length', 'max'=>128),
+			array('function_id, pelicula_id, cinema_id, fecha, horario, numero_sala, tipo_sala', 'required'),
+			array('function_id, pelicula_id, cinema_id, numero_sala', 'numerical', 'integerOnly'=>true),
+			array('tipo_sala', 'length', 'max'=>60),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, cinema_id, room_id, title, movie_time, price', 'safe', 'on'=>'search'),
+			array('id, function_id, pelicula_id, cinema_id, fecha, horario, numero_sala, tipo_sala', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,8 +48,6 @@ class Buy extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'cinema' => array(self::BELONGS_TO, 'Cinema', 'cinema_id'),
-			'room' => array(self::BELONGS_TO, 'Room', 'room_id'),
 		);
 	}
 
@@ -63,13 +58,13 @@ class Buy extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'cinema_id' => 'Teatro',
-			'room_id' => 'Sala',
-			'cinema.name' => 'Teatro',
-			'room.name' => 'Sala',
-			'title' => 'Titulo de película',
-			'movie_time' => 'Hora de la función',
-			'price' => 'Precio',
+			'function_id' => 'Funcion',
+			'pelicula_id' => 'Pelicula',
+			'cinema_id' => 'Cinema',
+			'fecha' => 'Fecha',
+			'horario' => 'Horario',
+			'numero_sala' => 'Numero Sala',
+			'tipo_sala' => 'Tipo Sala',
 		);
 	}
 
@@ -92,11 +87,13 @@ class Buy extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('function_id',$this->function_id);
+		$criteria->compare('pelicula_id',$this->pelicula_id);
 		$criteria->compare('cinema_id',$this->cinema_id);
-		$criteria->compare('room_id',$this->room_id);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('movie_time',$this->movie_time,true);
-		$criteria->compare('price',$this->price);
+		$criteria->compare('fecha',$this->fecha,true);
+		$criteria->compare('horario',$this->horario,true);
+		$criteria->compare('numero_sala',$this->numero_sala);
+		$criteria->compare('tipo_sala',$this->tipo_sala,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -107,7 +104,7 @@ class Buy extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Buy the static model class
+	 * @return WsResponse the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

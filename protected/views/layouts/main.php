@@ -30,8 +30,10 @@
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
+				array('label'=>'Extrenos', 'url'=>array('/webservice/index')),
+				array('label'=>'Teatros', 'url'=>array('/cinema/admin')),
+				array('label'=>'Salas', 'url'=>array('/room/admin')),
+				array('label'=>'Funciones', 'url'=>array('/buy/admin')),
 				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),

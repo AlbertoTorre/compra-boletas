@@ -62,11 +62,10 @@ class RoomController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Room;
-
+		$model = new Room;
+		var_dump( $model );
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['Room']))
 		{
 			$model->attributes=$_POST['Room'];

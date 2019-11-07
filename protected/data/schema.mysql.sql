@@ -40,3 +40,15 @@ CREATE TABLE tbl_buy (
     FOREIGN KEY (room_id) REFERENCES tbl_room(id)
 );
 
+/* Descarga de Webservice */
+CREATE TABLE tbl_ws_response (
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    function_id VARCHAR(20) NOT NULL,
+    pelicula_id INTEGER NOT NULL,
+    cinema_id INTEGER NOT NULL,
+    fecha DATE NOT NULL,
+    horario TIME NOT NULL,
+    numero_sala INTEGER NOT NULL,
+    tipo_sala VARCHAR(60) NOT NULL
+);
+
