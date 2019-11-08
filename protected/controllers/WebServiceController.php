@@ -23,48 +23,47 @@ class WebServiceController extends Controller
 		$model = new WsResponse;
 		$model->unsetAttributes();
 		$qty = 0;
-		// foreach ( $resultXML as $movie ) {
+		foreach ( $resultXML as $movie ) {
 			
-		// 	foreach ( $movie->cinemas->cinema as $cinema ) {
+			foreach ( $movie->cinemas->cinema as $cinema ) {
 
-		// 		foreach ( $cinema->salas->sala as $sala ) {
+				foreach ( $cinema->salas->sala as $sala ) {
 
-		// 			foreach ( $sala->Fecha->hora as $hora ) {
+					foreach ( $sala->Fecha->hora as $hora ) {
 						
-		// 				$isExit = WsResponse::model()->find( array(
-		// 					'condition'	=> 'function_id =  :functionId AND pelicula_id =  :peliculaId AND cinema_id   =  :cinemaId AND fecha       =  :fecha AND fecha       =  :fecha AND horario     =  :horario AND numero_sala =  :numeroSala',
-		// 					'params'=> array(
-		// 						":functionId" => (string) $hora['idFuncion'],
-		// 						":peliculaId" => (string) $movie['id'],
-		// 						":cinemaId"   => (string) $cinema['id'],
-		// 						":fecha"       => (string) $sala->Fecha['univ'],
-		// 						":horario"     => (string) $hora['horario'],
-		// 						":numeroSala" => (int) $sala['numeroSala'],
-		// 						":tipo_sala"   => (string) $sala['TipoSala']
-		// 					),
-		// 				));
+						$isExit = WsResponse::model()->find( array(
+							'condition'	=> 'function_id =  :functionId AND pelicula_id =  :peliculaId AND cinema_id   =  :cinemaId AND fecha       =  :fecha AND fecha       =  :fecha AND horario     =  :horario AND numero_sala =  :numeroSala',
+							'params'=> array(
+								":functionId" => (string) $hora['idFuncion'],
+								":peliculaId" => (string) $movie['id'],
+								":cinemaId"   => (string) $cinema['id'],
+								":fecha"       => (string) $sala->Fecha['univ'],
+								":horario"     => (string) $hora['horario'],
+								":numeroSala" => (int) $sala['numeroSala'],
+								":tipo_sala"   => (string) $sala['TipoSala']
+							),
+						));
 
-		// 				if ( $isExit !== null ) {
+						if ( $isExit !== null ) {
 
-		// 					$model->setIsNewRecord(true);
-		// 					$model->id = null;
-		// 					$model->function_id = (string) $hora['idFuncion'];
-		// 					$model->pelicula_id = (string) $movie['id'];
-		// 					$model->cinema_id   = (string) $cinema['id'];
-		// 					$model->fecha       = (string) $sala->Fecha['univ'];
-		// 					$model->horario     = (string) $hora['horario'];
-		// 					$model->numero_sala = (int) $sala['numeroSala'];
-		// 					$model->tipo_sala   = (string) $sala['TipoSala'];
-		// 					if ( $model->save() ) {
+							$model->setIsNewRecord(true);
+							$model->id = null;
+							$model->function_id = (string) $hora['idFuncion'];
+							$model->pelicula_id = (string) $movie['id'];
+							$model->cinema_id   = (string) $cinema['id'];
+							$model->fecha       = (string) $sala->Fecha['univ'];
+							$model->horario     = (string) $hora['horario'];
+							$model->numero_sala = (int) $sala['numeroSala'];
+							$model->tipo_sala   = (string) $sala['TipoSala'];
+							if ( $model->save() ) {
 
-		// 						$qty++;
-		// 					}
-		// 				}
-		// 			}
-		// 		}
-		// 	}
-		// }
-
+								$qty++;
+							}
+						}
+					}
+				}
+			}
+		}
 
 		$this->render('index', array('qtyInsert'=> $qty , 'movies'=> $resultXML ) );
 	}

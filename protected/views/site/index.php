@@ -26,7 +26,7 @@ $this->pageTitle=Yii::app()->name;
 				data-epayco-country="co"
 				data-epayco-test="true"
 				data-epayco-external="false"
-				data-epayco-response="<?php  echo Yii::app()->getBaseUrl(true).'/index.php?r=api/response'; ?>"
+				data-epayco-response="<?php  echo Yii::app()->getBaseUrl(true).'/index.php/api/response'; ?>"
 				data-epayco-confirmation="https://ejemplo.com/confirmacion">
         	</script>
 		</li>
